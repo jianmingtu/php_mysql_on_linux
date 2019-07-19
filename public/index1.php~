@@ -1,0 +1,39 @@
+
+<?php require_once('../private/initialize.php') ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Global Bank <?php if(isset($page_title)) {echo "- {$page_title}";} ?></title>
+    <link rel="stylesheet" media = "all" href=<?php echo url_for('/stylesheets/public.css'); ?>>
+</head>
+<body>
+
+<header>
+    <h1>
+        <a href=<?php echo url_for('/index.php'); ?>>
+            <img src="<?php echo url_for('/images/gbi_logo.png'); ?>" width="298" height="71"
+                 alt="hhfg" />
+        </a>
+    </h1>
+</header>
+
+<footer>
+    <p>Copyright bbb  <?php echo date('Y'); ?>, Globe Bank International </p>
+</footer>
+
+<p>This aaaaa is a fictitious company created by
+    <a href="http://linkedin.com">LinkedIn Corporation, or its affiliates</a>,
+    solely for the creation and development of educational training materials.
+    Any resemblance to real products or services is purely coincidental.
+    Information provided about the products or services is also fictitious and
+    should not be construed as representative of actual products or services on the market in a similar product or service category.</p>
+
+</body>
+</html>
+
+<?php
+global $db;
+db_disconnect($db);
+?>
