@@ -28,6 +28,10 @@ function error_500() {
 
 function redirect_to($string) {
     header("Location: $string");
+
+    // After the header redirect, end the current script using exit(); (Others have also suggested
+    // session_write_close(); and session_regenerate_id(true), you can try those as well, but I'd use exit();)
+    exit();
 }
 
 function is_post_request() {
