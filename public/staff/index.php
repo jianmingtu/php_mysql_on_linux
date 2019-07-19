@@ -14,6 +14,5 @@
     </div>
 </div>
 
-<!--<div> <?php print_r($_SERVER) ?> </div>
 
 <?php include('../../private/shared/staff_footer.php') ?>

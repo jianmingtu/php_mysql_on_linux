@@ -20,13 +20,13 @@
     }
 
     function has_length($value, $options) {
-        if((isset($options['min']) && has_length_less_than($value, $options['min'])) ||
-            (isset($options['max']) && has_length_greater_than($value, $options['min'])) ||
-            (isset($options['exact']) && !has_length_exact($value,$options['exact']))) {
-            return false;
+        if((isset($options['min']) && has_length_greater_than($value, $options['min'])) ||
+            (isset($options['max']) && has_length_less_than($value, $options['max'])) ||
+            (isset($options['exact']) && has_length_exact($value,$options['exact']))) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     function has_include_of($value, $set) {
@@ -39,18 +39,5 @@
 
     function has_string($value, $string) {
         return strpos($value, $string) !== false;
-    }
-
-    function display_error($errors) {
-        $display = "";
-        if(!empty($errors)) {
-            $display = "<div class = \"errors\">";
-            foreach ($errors as $error) {
-                $display .= "<p class=\"error\"> $error </p>";
-            }
-            $display .= "</div>";
-        }
-
-        return $display;
     }
 
