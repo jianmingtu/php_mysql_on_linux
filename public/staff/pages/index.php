@@ -15,7 +15,7 @@ $result_set = find_all_pages();
     <div class = "pages listing">
         <h1>Pages</h1>
         <div class="actions">
-            <a class="action" href="<?php echo url_for('/staff/pages/new.php') ?>">Create New Pages</a>
+            <a class="action" href="<?php echo url_for('/staff/pages/new.php') ?>">Create Page</a>
         </div>
         <table class = 'list'>
             <!-- draw head row --!>

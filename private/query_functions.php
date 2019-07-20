@@ -25,6 +25,15 @@
         return $subject_set;
     }
 
+    function find_all_admins() {
+        global $db;
+        $sql = "SELECT * FROM admins order by id ASC";
+        $result_set = mysqli_query($db, $sql);
+        confirm_result_set($result_set, $sql);
+
+        return $result_set;
+    }
+
     function find_subject_by_id($id) {
         global $db;
         $sql = "SELECT * FROM subjects WHERE id='".db_escape($db,$id)."' LIMIT 1";
@@ -53,6 +62,8 @@
             exit();
         }
     }
+
+
 
     function update_subject($subject)
     {
@@ -202,6 +213,33 @@ function validate_subject($subject) {
     return $errors;
 }
 
+function validate_admin($admin) {
+       $errors = [];
+
+       if(!has_length($admin['first_name'], ['min'=>2,'max'=>255])) {
+                $errors[] = "first name must be between 2 and 255 characters";
+           }
+
+   if(!has_length($admin['last_name'], ['min'=>2,'max'=>255])) {
+                $errors[] = "last name must be between 2 and 255 characters";
+            }
+
+   if(is_blank($admin['email'])|| !has_length($admin['email'],['max'=>255])) {
+                $errors[] = "email must not be blank or greater than 255 characters";
+            }
+
+    if(!has_length($admin['username'], ['min'=>6,'max'=>255])) {
+                $errors[] = "user name must be between 6 and 255 characters";
+            }
+
+    if(is_blank($admin['hashed_password'])|| !has_length($admin['hashed_password'],['min'=>12])) {
+                $errors[] = "password must not be blank or less than 12 characters";
+            }
+
+    return $errors;
+}
+
+
 function find_page_by_subjec_id($id, $options = []) {
     global $db;
     $sql = "SELECT * FROM pages where subject_id='".db_escape($db,$id)."'";
@@ -215,5 +253,75 @@ function find_page_by_subjec_id($id, $options = []) {
     confirm_result_set($result, $sql);
     return $result;
 
+}
+
+function insert_admin($admin) {
+    global $db;
+
+    $error = validate_admin($admin);
+    if(!empty($error)) {
+        return $error;
+    }
+
+    $sql = "INSERT INTO admins (first_name, last_name, email, username, hashed_password) VALUES ("
+        . "'" . db_escape($db, $admin['first_name']) . "',"
+        . "'" . db_escape($db, $admin['last_name']) . "',"
+        . "'" . db_escape($db, $admin['email']) . "',"
+        . "'" . db_escape($db, $admin['username']) . "',"
+        . "'" . db_escape($db, $admin['hashed_password']) . "'"
+        . ") ";
+
+    echo $sql;
+
+    $result = mysqli_query($db, $sql);
+
+    if($result) {
+        return true;
+    } else {
+        echo mysqli_error($db);
+        db_disconnect($db);
+        exit();
+    }
+}
+
+
+function update_admin_by_id($admin)
+{
+    global $db;
+
+    $error = validate_admin($admin);
+
+    if(!empty($error)) {
+        return $error;
+    }
+
+    $sql = "UPDATE admins SET "
+        . "first_name = '" . db_escape($db, $admin['first_name']) . "',"
+        . "last_name = '" . db_escape($db, $admin['last_name']) . "',"
+        . "email = '" . db_escape($db, $admin['email']) . "',"
+        . "username = '" . db_escape($db, $admin['username']) . "',"
+        . "hashed_password = '" . db_escape($db, $admin['hashed_password']) . "' "
+        . "WHERE id='" . db_escape($db, $admin['id']). "' "
+        . "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if($result) {
+        return true;
+    } else {
+        echo mysqli_error($db);
+        db_disconnect($db);
+        exit();
+    }
+}
+
+function find_admin_by_id($id) {
+    global $db;
+    $sql = "SELECT * FROM admins WHERE id='".db_escape($db,$id)."' LIMIT 1";
+    $result_set = mysqli_query($db, $sql);
+    confirm_result_set($result_set,$sql);
+    $admin = mysqli_fetch_assoc($result_set);
+    mysqli_free_result($result_set);
+    return $admin;
 }
 

@@ -120,3 +120,8 @@ mysqli_free_result($pages);
 
 <?php include(SHARED_PATH."/staff_footer.php"); ?>
 
+
+
+
+
+
