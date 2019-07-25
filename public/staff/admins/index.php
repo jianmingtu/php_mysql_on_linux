@@ -1,15 +1,12 @@
 <?php
-    require_once('../../../private/initialize.php');
+require_once('../../../private/initialize.php');
+request_login();
 
-    $admins = [];
-    if(is_post_request()) {
+$admins = find_all_admins();
 
-    } else {
-        $admins = find_all_admins();
-    }
 ?>
 
-<?php $page_title = 'Show Admin' ?>
+<?php $page_title = 'Show Admins' ?>
 <?php include(SHARED_PATH.'/staff_header.php') ?>
 
 <div id="content">

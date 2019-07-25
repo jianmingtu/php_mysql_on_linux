@@ -3,6 +3,7 @@
 <?php
 
 $subject_set = find_all_subjects();
+request_login();
 
 ?>
 

@@ -1,4 +1,10 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php
+require_once('../../../private/initialize.php');
+request_login();
+
+$headers = ['ID', 'Subject Name', 'Position', 'Visible','Name','&nbsp','&nbsp','&nbsp'];
+
+?>
 
 <?php
     $id = $_GET['id']??'';
@@ -14,9 +20,9 @@
    $admin['username']= '';
    $admin['hashed_password']= '';
 
-    if(!is_post_request()) {
-        $admin = find_admin_by_id($id);
-    }
+
+   $admin = find_admin_by_id($id);
+
 ?>
 
 

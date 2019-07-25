@@ -3,10 +3,17 @@
 
 <?php
 
+$preview = false;
+if(isset($_GET['preview'])) {
+    // http://localhost/globe_bank/public/index.php?preview=true&id=13
+    $preview = $_GET['preview'] == 'true' && is_logged_in() ? true : false;
+}
+
+$visible = !$preview;
+
 if(isset($_GET['id'])) {
     $page_id = $_GET['id'];
-    $preview = $_GET['preview']??false;
-    $visible = !($preview == true);
+
 
     echo "$visible".$visible."<br.>";
 

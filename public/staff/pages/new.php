@@ -1,4 +1,6 @@
-<?php require_once("../../../private/initialize.php");
+<?php
+    require_once("../../../private/initialize.php");
+request_login();
 
     $page = [];
     $page['id'] = "";
@@ -18,16 +20,22 @@
 
         insert_page($page);
 
-        $id = mysqli_insert_id($db);
+        $new_id = mysqli_insert_id($db);
 
-        redirect_to(url_for('/staff/pages/show.php?id='.$id));
+        $subject = find_subject_by_id($page['subject_id']);
+
+        redirect_to(url_for('/staff/pages/show.php?id='.$new_id));
     } else {
+
         $subjects = find_all_subjects();
         $subject_count = mysqli_num_rows($subjects);
 
-        $pages = find_all_pages();
+        $page['subject_id'] = $_GET['subject_id']??1;
+
+        $pages = find_page_by_subjec_id($page['subject_id']);
         $page_count = mysqli_num_rows($pages)+1;
         $page['id'] = $page_count;
+
 
     }
 
@@ -38,18 +46,22 @@
 <?php include(SHARED_PATH."/staff_header.php"); ?>
 
 <div id="content">
-    <a class="back-list" href="<?php echo url_for('/staff/pages/index.php'); ?>"> &laquo; Back to List</a>
+    <a class="back-link" href=<?php echo url_for('/staff/subjects/show.php?id='.h(u($page['subject_id']))); ?>>&laquo;Back to List</a>
 
     <div class ="pages new">
         <h1>Create Page</h1>
-        <form action = <?php echo url_for('/staff/pages/new.php?id='.$page['id']); ?> method="post">
+        <form action = <?php echo url_for('/staff/pages/new.php?subject_id='.$page['subject_id']); ?> method="post">
             <dl>
                 <dt>Subject</dt>
                 <dd>
                     <select name="subject_id">
                         <?php
                             while($subject = mysqli_fetch_assoc($subjects)) {
-                                echo "<option value=\"{$subject['id']}\">{$subject['menu_name']}</option>";
+
+                                echo "<option value=\"{$subject['id']}\" ";
+                                if($subject['id'] == $page['subject_id'])
+                                    echo "selected";
+                                echo " >{$subject['menu_name']}</option>";
                             }
                         ?>
                     </select>
@@ -70,7 +82,7 @@
                         <?php
                             for($i=1; $i<=$page_count;++$i) {
                                 echo "<option value=\"{$i}\" ";
-                                if($i==$page_count) {
+                                if($i==$page['subject_id']) {
                                     echo "selected";
                                 }
                                 echo ">{$i}</option>";

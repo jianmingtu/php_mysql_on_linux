@@ -1,7 +1,8 @@
-<?php require_once("../../../private/initialize.php");
-
+<?php
+require_once("../../../private/initialize.php");
+request_login();
     if(!isset($_GET['id'])) {
-        redirect_to(url_for('/staff/pages/index.php'));
+        redirect_to(url_for('/staff/subjects/index.php'));
         exit();
     }
 
@@ -27,11 +28,13 @@
     } else {
         $subjects = find_all_subjects();
         $subject_count = mysqli_num_rows($subjects);
-
-        $pages = find_all_pages();
-        $page_count = mysqli_num_rows($pages);
+        
 
         $page = find_page_by_id($page['id']);
+        $pages = find_page_by_subjec_id($page['subject_id']);
+        $page_count = mysqli_num_rows($pages);
+
+        $subject = find_subject_by_id($page['subject_id']);
 
     }
 ?>
@@ -41,8 +44,7 @@
 <?php include(SHARED_PATH."/staff_header.php"); ?>
 
 <div id="content">
-    <a class="back-list" href="<?php echo url_for('/staff/pages/index.php'); ?>"> &laquo; Back to List</a>
-
+    <a class="back-link" href=<?php echo url_for('/staff/subjects/show.php?id='.h(u($page['subject_id']))); ?>>&laquo;Back to List</a>
     <div class ="pages edit">
         <h1>Edit Page</h1>
         <form action = <?php echo url_for('/staff/pages/edit.php?id='.h($page['id'])); ?> method="post">

@@ -1,4 +1,7 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php
+require_once('../../../private/initialize.php');
+request_login();
+?>
 
 <?php $id = $_GET['id'] ?? '1';
     $page = find_page_by_id($id);
@@ -9,7 +12,7 @@
 
 
 <div id="content">
-    <a class="back-link" href=<?php echo url_for('/staff/pages/index.php'); ?>>&laquo;Back to List</a>
+    <a class="back-link" href=<?php echo url_for('/staff/subjects/show.php?id='.h(u($page['subject_id']))); ?>>&laquo;Back to List</a>
 
     <div class = "page show">
 

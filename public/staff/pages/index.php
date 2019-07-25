@@ -2,6 +2,9 @@
 
 require_once('../../../private/initialize.php');
 
+redirect_to(url_for('/staff/index.php'));
+
+request_login();
 $headers = ['ID', 'Subject Name', 'Position', 'Visible','Name','&nbsp','&nbsp','&nbsp'];
 
 $result_set = find_all_pages();

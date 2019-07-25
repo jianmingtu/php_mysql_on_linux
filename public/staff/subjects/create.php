@@ -2,6 +2,8 @@
 
 require_once('../../../private/initialize.php');
 
+request_login();
+
 if(is_post_request()) {
     $request = [];
     $request['menu_name'] = $_POST['menu_name'] ?? '';

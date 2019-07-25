@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../../private/initialize.php');
-
+request_login();
 if(!isset($_GET['id'])) {
     redirect_to(url_for('/staff/subjects/index.php'));
 }
