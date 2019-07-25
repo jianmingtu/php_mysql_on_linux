@@ -28,7 +28,7 @@ request_login();
     } else {
         $subjects = find_all_subjects();
         $subject_count = mysqli_num_rows($subjects);
-        
+
 
         $page = find_page_by_id($page['id']);
         $pages = find_page_by_subjec_id($page['subject_id']);
