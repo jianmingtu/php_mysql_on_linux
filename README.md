@@ -39,6 +39,11 @@ Important terminology:
 - prepare mysql statement to secure query
 - $COOKIE, $SESSION, setcookie($name, $value, $expire, ...), unset($COOKIE['admin']), unset($SESSION['admin'])
 
-                           
+# display public site (AWS ubuntu php & mysql host 3.130.70.244)     
+    http://3.130.70.244/globe_bank/public/index.php
+
+# display public site (AWS ubuntu php & mysql host 3.130.70.244)      
+    http://3.130.70.244/globe_bank/public/staff/index.php
+    with user name: jianmingtu1 and password as Amandatu123456@                 
 
 
