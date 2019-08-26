@@ -45,7 +45,6 @@ if(isset($_GET['id'])) {
 <div id="main">
 
     <?php include(SHARED_PATH.'/public_navigation.php') ?>
-
     <div id="page">
 
         <?php
