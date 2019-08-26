@@ -30,7 +30,9 @@ $visible = $visible??true;
 
             </li>
         <?php } ?>
-        <a href = "<?php echo url_for('staff/index.php'); ?>"> Sign In</a>
+        <li>
+            <a href = "<?php echo url_for('staff/index.php'); ?>"> Sign In</a>
+        </li>
     </ul>
     <?php mysqli_free_result($nav_subjects); ?>
 </navigation>
